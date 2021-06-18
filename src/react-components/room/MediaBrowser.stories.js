@@ -14,6 +14,27 @@ export default {
 };
 
 const FACETS = {
+  customSketchfab: [
+    { text: "Featured", params: { filter: "featured" } },
+    { text: "Animals", params: { filter: "animals-pets" } },
+    { text: "Architecture", params: { filter: "architecture" } },
+    { text: "Art", params: { filter: "art-abstract" } },
+    { text: "Vehicles", params: { filter: "cars-vehicles" } },
+    { text: "Characters", params: { filter: "characters-creatures" } },
+    { text: "Culture", params: { filter: "cultural-heritage-history" } },
+    { text: "Gadgets", params: { filter: "electronics-gadgets" } },
+    { text: "Fashion", params: { filter: "fashion-style" } },
+    { text: "Food", params: { filter: "food-drink" } },
+    { text: "Furniture", params: { filter: "furniture-home" } },
+    { text: "Music", params: { filter: "music" } },
+    { text: "Nature", params: { filter: "nature-plants" } },
+    { text: "News", params: { filter: "news-politics" } },
+    { text: "People", params: { filter: "people" } },
+    { text: "Places", params: { filter: "places-travel" } },
+    { text: "Science", params: { filter: "science-technology" } },
+    { text: "Sports", params: { filter: "sports-fitness" } },
+    { text: "Weapons", params: { filter: "weapons-military" } }
+  ],
   sketchfab: [
     { text: "Featured", params: { filter: "featured" } },
     { text: "Animals", params: { filter: "animals-pets" } },
@@ -252,6 +273,12 @@ const gif = {
 
 const mediaSources = ["poly", "sketchfab", "videos", "scenes", "avatars", "gifs", "images"];
 
+const customMediaSources = [
+  "futureCity", "animals", "natureAndPlants", "art", "fashionAndStyle", 
+  "transportation", "technology", "foodAndDrink", "sports", "fun",
+  "living", "medicine"
+];
+
 export const Favorites = () => (
   <MediaBrowser selectedSource={"favorites"}>
     <MediaTile entry={room} />
@@ -353,26 +380,20 @@ export const Avatars = () => (
   </MediaBrowser>
 );
 
-export const SketchfabModel = () => (
+export const SketchfabModel = (clickAction) => (
   <MediaBrowser
-    searchPlaceholder="Search Sketchfab..."
-    mediaSources={mediaSources}
-    selectedSource={"sketchfab"}
-    facets={FACETS.sketchfab}
-    headerRight={
-      <IconButton lg>
-        <LinkIcon />
-        <p>Custom Model</p>
-      </IconButton>
-    }
+    mediaSources={customMediaSources}
+    selectedSource={"futureCity"}
+    facets={FACETS.customSketchfab}
+    //onSelectFacet=
     hasNext
   >
-    <MediaTile entry={sketchfabModel} />
-    <MediaTile entry={sketchfabModel} />
-    <MediaTile entry={sketchfabModel} />
-    <MediaTile entry={sketchfabModel} />
-    <MediaTile entry={sketchfabModel} />
-    <MediaTile entry={sketchfabModel} />
+    <MediaTile entry={sketchfabModel} onClick={e => clickAction(e, sketchfabModel)}/>
+    <MediaTile entry={sketchfabModel} onClick={e => clickAction(e, sketchfabModel)}/>
+    <MediaTile entry={sketchfabModel} onClick={e => clickAction(e, sketchfabModel)}/>
+    <MediaTile entry={sketchfabModel} onClick={e => clickAction(e, sketchfabModel)}/>
+    <MediaTile entry={sketchfabModel} onClick={e => clickAction(e, sketchfabModel)}/>
+    <MediaTile entry={sketchfabModel} onClick={e => clickAction(e, sketchfabModel)}/>
   </MediaBrowser>
 );
 
