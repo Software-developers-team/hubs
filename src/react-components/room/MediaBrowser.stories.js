@@ -5,6 +5,7 @@ import { IconButton } from "../input/IconButton";
 import { ReactComponent as LinkIcon } from "../icons/Link.svg";
 import { CreateTile, MediaTile } from "./MediaTiles";
 import backgroundUrl from "../../assets/images/home-hero-background-unbranded.png";
+import { animalsEntities, futureCityEntities } from "../../model-entities/future-city-models"; 
 
 export default {
   title: "Room/MediaBrowser",
@@ -13,28 +14,33 @@ export default {
   }
 };
 
-const FACETS = {
-  customSketchfab: [
-    { text: "Featured", params: { filter: "featured" } },
-    { text: "Animals", params: { filter: "animals-pets" } },
-    { text: "Architecture", params: { filter: "architecture" } },
-    { text: "Art", params: { filter: "art-abstract" } },
-    { text: "Vehicles", params: { filter: "cars-vehicles" } },
-    { text: "Characters", params: { filter: "characters-creatures" } },
-    { text: "Culture", params: { filter: "cultural-heritage-history" } },
-    { text: "Gadgets", params: { filter: "electronics-gadgets" } },
-    { text: "Fashion", params: { filter: "fashion-style" } },
-    { text: "Food", params: { filter: "food-drink" } },
-    { text: "Furniture", params: { filter: "furniture-home" } },
-    { text: "Music", params: { filter: "music" } },
-    { text: "Nature", params: { filter: "nature-plants" } },
-    { text: "News", params: { filter: "news-politics" } },
-    { text: "People", params: { filter: "people" } },
-    { text: "Places", params: { filter: "places-travel" } },
-    { text: "Science", params: { filter: "science-technology" } },
-    { text: "Sports", params: { filter: "sports-fitness" } },
-    { text: "Weapons", params: { filter: "weapons-military" } }
+const CUSTOM_FACETS = {
+  'futureCity': [
+    { text: "Future City", params: { filter: 'futureCity' }}
   ],
+  'animals': [
+    { text: "Animals", params: { filter: 'animals' }}
+  ],
+  'natureAndPlants': [
+    { text: "Nature & plants", params: { filter: 'natureAndPlants' }}
+  ],
+  'art': [
+    { text: "Art supplies", params: { filter: 'artSupplies' }},
+    { text: "Scissors", params: { filter: 'scissors' }},
+    { text: "Markers", params: { filter: 'markers' }},
+    { text: "Pens", params: { filter: 'pens' }},
+    { text: "Pencils", params: { filter: 'pencils' }},
+    { text: "Camera", params: { filter: 'camera' }},
+    { text: "Sculpture", params: { filter: 'sculpture' }},
+    { text: "Music", params: { filter: 'music' }},
+  ],
+};
+
+export var selectedSource = 'futureCity';
+export var loadedFacets = CUSTOM_FACETS[selectedSource];
+export var selectedFacet = 'futureCity';
+
+const FACETS = {
   sketchfab: [
     { text: "Featured", params: { filter: "featured" } },
     { text: "Animals", params: { filter: "animals-pets" } },
@@ -279,6 +285,14 @@ const customMediaSources = [
   "living", "medicine"
 ];
 
+const modelEntities = {
+  'futureCity': futureCityEntities,
+  'animals': animalsEntities,
+  'natureAndPlants': futureCityEntities,
+  'artSupplies': futureCityEntities,
+  'scissors': futureCityEntities
+}
+
 export const Favorites = () => (
   <MediaBrowser selectedSource={"favorites"}>
     <MediaTile entry={room} />
@@ -380,20 +394,25 @@ export const Avatars = () => (
   </MediaBrowser>
 );
 
-export const SketchfabModel = (clickAction) => (
+export const SketchfabModel = (clickAction, reloadAction) => (
   <MediaBrowser
     mediaSources={customMediaSources}
-    selectedSource={"futureCity"}
-    facets={FACETS.customSketchfab}
-    //onSelectFacet=
+    selectedSource={selectedSource}
+    onSelectSource={source => selectSource(source, reloadAction)}
+    facets={loadedFacets}
+    activeFilter={selectedFacet}
+    onSelectFacet={source => selectFacet(source, reloadAction)}
     hasNext
   >
-    <MediaTile entry={sketchfabModel} onClick={e => clickAction(e, sketchfabModel)}/>
-    <MediaTile entry={sketchfabModel} onClick={e => clickAction(e, sketchfabModel)}/>
-    <MediaTile entry={sketchfabModel} onClick={e => clickAction(e, sketchfabModel)}/>
-    <MediaTile entry={sketchfabModel} onClick={e => clickAction(e, sketchfabModel)}/>
-    <MediaTile entry={sketchfabModel} onClick={e => clickAction(e, sketchfabModel)}/>
-    <MediaTile entry={sketchfabModel} onClick={e => clickAction(e, sketchfabModel)}/>
+    {
+      modelEntities[selectedFacet].map(entity => {
+        return (
+          <MediaTile entry={entity}
+            onClick={e => clickAction(e, entity)}/>
+        )
+      })
+    }
+  
   </MediaBrowser>
 );
 
@@ -413,3 +432,14 @@ export const Gif = () => (
     <MediaTile entry={gif} />
   </MediaBrowser>
 );
+
+export const selectSource = (source, reloadAction)=> {
+  selectedSource = source;
+  loadedFacets = CUSTOM_FACETS[source];
+  selectFacet(loadedFacets[0], reloadAction);
+};
+
+export const selectFacet = (source, reloadAction)=> {
+  selectedFacet = source.params.filter;
+  reloadAction();
+};

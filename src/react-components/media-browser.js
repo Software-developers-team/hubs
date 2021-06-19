@@ -221,6 +221,10 @@ class MediaBrowserContainer extends Component {
     return newState;
   };
 
+  reload = () => {
+    this.props.mediaSearchStore.filterQueryNavigate("", "");
+  }
+
   handleQueryUpdated = (query, forceNow) => {
     this.setState({ result: null });
 
@@ -447,7 +451,7 @@ class MediaBrowserContainer extends Component {
       );
     }
 
-    return SketchfabModel(this.handleEntryClicked);
+    return SketchfabModel(this.handleEntryClicked, this.reload);
 
     return (
       <MediaBrowser
