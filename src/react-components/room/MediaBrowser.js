@@ -2,13 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import styles from "./MediaBrowser.scss";
-import { ReactComponent as SearchIcon } from "../icons/Search.svg";
-import { ReactComponent as StarIcon } from "../icons/Star.svg";
 import { ReactComponent as CloseIcon } from "../icons/Close.svg";
 import { ReactComponent as ArrowForwardIcon } from "../icons/ArrowForward.svg";
 import { ReactComponent as ArrowBackIcon } from "../icons/ArrowBack.svg";
-import { FormattedMessage, defineMessages, useIntl } from "react-intl";
-import { TextInputField } from "../input/TextInputField";
+import { defineMessages, useIntl } from "react-intl";
 import { IconButton } from "../input/IconButton";
 import { FullscreenLayout } from "../layout/FullscreenLayout";
 import { Button } from "../input/Button";
@@ -25,6 +22,7 @@ const navTitleMessages = defineMessages({
   sketchfab: { id: "media-browser.nav_title.sketchfab", defaultMessage: "Sketchfab" },
   poly: { id: "media-browser.nav_title.poly", defaultMessage: "Google Poly" },
   twitch: { id: "media-browser.nav_title.twitch", defaultMessage: "Twitch" },
+  
   futureCity: { id: "media-browser.nav_title.future_city", defaultMessage: "Future City" },
   animals: { id: "media-browser.nav_title.animals", defaultMessage: "Animals" },
   natureAndPlants: { id: "media-browser.nav_title.nature_and_plants", defaultMessage: "Nature & Plants" },
