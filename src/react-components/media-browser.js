@@ -451,7 +451,7 @@ class MediaBrowserContainer extends Component {
       );
     }
 
-    return SketchfabModel(this.handleEntryClicked, this.reload);
+    return SketchfabModel(this.handleEntryClicked, this.reload, this.close);
 
     return (
       <MediaBrowser
