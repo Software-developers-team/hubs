@@ -8,7 +8,7 @@ import backgroundUrl from "../../assets/images/home-hero-background-unbranded.pn
 import { futureCityEntities } from "../../model-entities/future-city-models"; 
 import { oceanEntities, petsEntities, pinguinsEntities, variousEntities, wildlifeEntities } from "../../model-entities/animals-models"; 
 import { colorfulEntities, coralsEntities, plantsAndTreesEntities, plantsEntities } from "../../model-entities/nature-and-plants-models";
-import { artSuppliesEntities } from "../../model-entities/art-models";
+import { artSuppliesEntities, scissorsEntities } from "../../model-entities/art-models";
 
 export default {
   title: "Room/MediaBrowser",
@@ -360,7 +360,7 @@ const modelEntities = {
   'pinguins': pinguinsEntities,
   'wildlife': wildlifeEntities,
   'various': variousEntities,
-  'ocean': wildlifeEntities,
+  'ocean': wildlifeEntities, // TODO: Change
 
   'plantsAndTrees': plantsAndTreesEntities,
   'plants': plantsEntities,
@@ -368,7 +368,7 @@ const modelEntities = {
   'corals': coralsEntities,
 
   'artSupplies': artSuppliesEntities,
-  'scissors': futureCityEntities,
+  'scissors': scissorsEntities,
   'markers': futureCityEntities,
   'pens': petsEntities,
   'pencils': futureCityEntities,
