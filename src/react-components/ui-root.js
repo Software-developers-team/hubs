@@ -276,7 +276,14 @@ class UIRoot extends Component {
     }
   };
 
+  onKeydown = (event) => {
+    if (event.ctrlKey && event.shiftKey && event.code === 'KeyU') {         
+      document.getElementsByClassName("ContentMenu__content-menu__15hNf")[0].setAttribute('style', 'display:block !important');
+    }
+  }
+
   componentDidMount() {
+    window.addEventListener('keydown', this.onKeydown);
     window.addEventListener("concurrentload", this.onConcurrentLoad);
     window.addEventListener("idle_detected", this.onIdleDetected);
     window.addEventListener("activity_detected", this.onActivityDetected);
@@ -369,6 +376,7 @@ class UIRoot extends Component {
     window.removeEventListener("concurrentload", this.onConcurrentLoad);
     window.removeEventListener("idle_detected", this.onIdleDetected);
     window.removeEventListener("activity_detected", this.onActivityDetected);
+    window.removeEventListener('keydown', this.onKeydown);
   }
 
   storeUpdated = () => {
