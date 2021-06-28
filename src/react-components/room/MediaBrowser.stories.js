@@ -5,6 +5,18 @@ import { IconButton } from "../input/IconButton";
 import { ReactComponent as LinkIcon } from "../icons/Link.svg";
 import { CreateTile, MediaTile } from "./MediaTiles";
 import backgroundUrl from "../../assets/images/home-hero-background-unbranded.png";
+import { futureCityEntities } from "../../model-entities/future-city-models"; 
+import { oceanEntities, petsEntities, pinguinsEntities, variousEntities, wildlifeEntities } from "../../model-entities/animals-models"; 
+import { colorfulEntities, coralsEntities, plantsAndTreesEntities, plantsEntities } from "../../model-entities/nature-and-plants-models";
+import { artSuppliesEntities, camerasEntities, markersEntities, musicAccessoriesEntities, musicInstrumentsEntities, pencilsEntities, pensEntities, scissorsEntities, sculpturesEntities } from "../../model-entities/art-models";
+import { accessoriesAndClothesEntities, apparelEntities, bagsEntities, casualEntities, clothingsEntities, watchesEntities } from "../../model-entities/fashion-and-style-models";
+import { breadEntities, drinksEntities, snaksEntities } from "../../model-entities/food-and-drink-models";
+import { bowlingEntities, equipmentEntities, skateboardsEntities, teamsEntities } from "../../model-entities/sports-models";
+import { medicineEntities } from "../../model-entities/medicine-models";
+import { cartoonRobotsEntities, controllersEntities, droneEntities, electronicsAndGadgetsEntities, printers3dAndRobotArmsEntities, robotsEntities, socialMediaEntities, technologyEntities, VREntities, wearableTechAndFitbitEntities } from "../../model-entities/technology-models";
+import { boatsEntities, busEntities, carsAndVehiclesEntities, planesEntities, trainsEntities, transportationEntities } from "../../model-entities/transportation-models";
+import { boardGamesEntities, cuteSetEntities, toyBreakersEntities, toyPetsEntities } from "../../model-entities/fun-models";
+import { bedsAndKitchensEntities, furntitureEntities, housesEntities, trashBinsEntities, trashEntities } from "../../model-entities/living-models";
 
 export default {
   title: "Room/MediaBrowser",
@@ -12,6 +24,84 @@ export default {
     layout: "fullscreen"
   }
 };
+
+const CUSTOM_FACETS = {
+  'futureCity': [
+    { text: "Future City", params: { filter: 'futureCity' }}
+  ],
+  'animals': [
+    { text: "Pets", params: { filter: 'pets' }},
+    { text: "Pinguins", params: { filter: 'pinguins' }},
+    { text: "Wildlife", params: { filter: 'wildlife' }},
+    { text: "Various", params: { filter: 'various' }},
+    { text: "Ocean", params: { filter: 'ocean' }}
+  ],
+  'natureAndPlants': [
+    { text: "Plants", params: { filter: 'plants' }},
+    { text: "Colorful", params: { filter: 'colorful' }},
+    { text: "Corals", params: { filter: 'corals' }}
+  ],
+  'art': [
+    { text: "Art supplies", params: { filter: 'artSupplies' }},
+    { text: "Scissors", params: { filter: 'scissors' }},
+    { text: "Markers", params: { filter: 'markers' }},
+    { text: "Pens", params: { filter: 'pens' }},
+    { text: "Pencils", params: { filter: 'pencils' }},
+    { text: "Camera", params: { filter: 'camera' }},
+    { text: "Music instruments", params: { filter: 'musicInstruments' }},
+    { text: "Music accessories", params: { filter: 'musicAccessories' }},
+  ],
+  'fashionAndStyle': [
+    { text: "Casual", params: { filter: 'casual' }},
+    { text: "Clothings", params: { filter: 'clothings' }},
+    { text: "Apparel", params: { filter: 'apparel' }},
+    { text: "Bags", params: { filter: 'bags' }},
+    { text: "Watches", params: { filter: 'watches' }}
+  ],
+  'transportation': [
+    { text: "Cars & vehicles", params: { filter: 'carsAndVehicles' }},
+    { text: "Boats", params: { filter: 'boats' }},
+    { text: "Trains", params: { filter: 'trains' }}
+  ],
+  'technology': [
+    { text: "Social Media", params: { filter: 'socialMedia' }},
+    { text: "Electronics & Gadgets", params: { filter: 'electronicsAndGadgets' }},
+    { text: "Controllers", params: { filter: 'controllers' }},
+    { text: "Technology", params: { filter: 'technology' }},
+    { text: "Drone", params: { filter: 'drone' }},
+    { text: "VR", params: { filter: 'VR' }},
+    { text: "3D printers & robot arms", params: { filter: '3DPrintersAndRobotArms' }},
+    { text: "Cartoon robots", params: { filter: 'cartoonRobots' }}
+  ],
+  'foodAndDrink': [
+    { text: "Bread", params: { filter: 'bread' }},
+    { text: "Snaks", params: { filter: 'snaks' }},
+    { text: "Drinks", params: { filter: 'drinks' }},
+  ],
+  'sports': [
+    { text: "Teams", params: { filter: 'teams' }},
+    { text: "Bowling", params: { filter: 'bowling' }},
+    { text: "Equipment", params: { filter: 'equipment' }},
+    { text: "Skateboards", params: { filter: 'skateboards' }},
+  ],
+  'fun': [
+    { text: "Cute set", params: { filter: 'cuteSet' }},
+    { text: "Pets", params: { filter: 'petsInFun' }}
+  ],
+  'living': [
+    { text: "Houses", params: { filter: 'houses' }},
+    { text: "Beds & Kitchens", params: { filter: 'bedsAndKitchens' }},
+    { text: "Furniture", params: { filter: 'furniture' }},
+    { text: "Trash bins", params: { filter: 'trashBins' }},
+  ],
+  'medicine': [
+    { text: "Medicine", params: { filter: 'medicine' }}
+  ],
+};
+
+export var selectedSource = 'futureCity';
+export var loadedFacets = CUSTOM_FACETS[selectedSource];
+export var selectedFacet = 'futureCity';
 
 const FACETS = {
   sketchfab: [
@@ -252,6 +342,74 @@ const gif = {
 
 const mediaSources = ["poly", "sketchfab", "videos", "scenes", "avatars", "gifs", "images"];
 
+const customMediaSources = [
+  "futureCity", "animals", "natureAndPlants", "art", "fashionAndStyle", 
+  "transportation", "technology", "foodAndDrink", "sports", "fun",
+  "living", "medicine"
+];
+
+const modelEntities = {
+  'futureCity': futureCityEntities,
+
+  'pets': petsEntities,
+  'pinguins': pinguinsEntities,
+  'wildlife': wildlifeEntities,
+  'various': variousEntities,
+  'ocean': oceanEntities,
+
+  'plants': plantsEntities,
+  'colorful': colorfulEntities,
+  'corals': coralsEntities,
+
+  'artSupplies': artSuppliesEntities,
+  'scissors': scissorsEntities,
+  'markers': markersEntities,
+  'pens': pensEntities,
+  'pencils': pencilsEntities,
+  'camera': camerasEntities,
+  'musicInstruments': musicInstrumentsEntities,
+  'musicAccessories': musicAccessoriesEntities,
+
+  'casual': casualEntities,
+  'clothings': clothingsEntities,
+  'apparel': apparelEntities,
+  'bags': bagsEntities,
+  'accessoriesAndClothes': accessoriesAndClothesEntities,
+  'watches': watchesEntities,
+
+  'carsAndVehicles': carsAndVehiclesEntities,
+  'boats': boatsEntities,
+  'trains': trainsEntities,
+
+  'socialMedia': socialMediaEntities,
+  'electronicsAndGadgets': electronicsAndGadgetsEntities,
+  'controllers': controllersEntities,
+  'technology': technologyEntities,
+  'drone': droneEntities,
+  'VR': VREntities,
+  '3DPrintersAndRobotArms': printers3dAndRobotArmsEntities,
+  'cartoonRobots': cartoonRobotsEntities,
+
+  'bread': breadEntities,
+  'snaks': snaksEntities,
+  'drinks': drinksEntities,
+
+  'teams': teamsEntities,
+  'bowling': bowlingEntities,
+  'equipment': equipmentEntities,
+  'skateboards': skateboardsEntities,
+
+  'cuteSet': cuteSetEntities,
+  'petsInFun': toyPetsEntities,
+
+  'houses': housesEntities,
+  'bedsAndKitchens': bedsAndKitchensEntities,
+  'furniture': furntitureEntities,
+  'trashBins': trashBinsEntities,
+
+  'medicine': medicineEntities,
+}
+
 export const Favorites = () => (
   <MediaBrowser selectedSource={"favorites"}>
     <MediaTile entry={room} />
@@ -353,26 +511,25 @@ export const Avatars = () => (
   </MediaBrowser>
 );
 
-export const SketchfabModel = () => (
+export const SketchfabModel = (clickAction, reloadAction, closeAction) => (
   <MediaBrowser
-    searchPlaceholder="Search Sketchfab..."
-    mediaSources={mediaSources}
-    selectedSource={"sketchfab"}
-    facets={FACETS.sketchfab}
-    headerRight={
-      <IconButton lg>
-        <LinkIcon />
-        <p>Custom Model</p>
-      </IconButton>
-    }
-    hasNext
+    onClose={() => closeAction()}
+    mediaSources={customMediaSources}
+    selectedSource={selectedSource}
+    onSelectSource={source => selectSource(source, reloadAction)}
+    facets={loadedFacets}
+    activeFilter={selectedFacet}
+    onSelectFacet={source => selectFacet(source, reloadAction)}
   >
-    <MediaTile entry={sketchfabModel} />
-    <MediaTile entry={sketchfabModel} />
-    <MediaTile entry={sketchfabModel} />
-    <MediaTile entry={sketchfabModel} />
-    <MediaTile entry={sketchfabModel} />
-    <MediaTile entry={sketchfabModel} />
+    {
+      modelEntities[selectedFacet].map(entity => {
+        return (
+          <MediaTile entry={entity}
+            onClick={e => clickAction(e, entity)}/>
+        )
+      })
+    }
+  
   </MediaBrowser>
 );
 
@@ -392,3 +549,14 @@ export const Gif = () => (
     <MediaTile entry={gif} />
   </MediaBrowser>
 );
+
+export const selectSource = (source, reloadAction)=> {
+  selectedSource = source;
+  loadedFacets = CUSTOM_FACETS[source];
+  selectFacet(loadedFacets[0], reloadAction);
+};
+
+export const selectFacet = (source, reloadAction)=> {
+  selectedFacet = source.params.filter;
+  reloadAction();
+};

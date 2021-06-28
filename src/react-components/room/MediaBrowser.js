@@ -2,13 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import styles from "./MediaBrowser.scss";
-import { ReactComponent as SearchIcon } from "../icons/Search.svg";
-import { ReactComponent as StarIcon } from "../icons/Star.svg";
 import { ReactComponent as CloseIcon } from "../icons/Close.svg";
 import { ReactComponent as ArrowForwardIcon } from "../icons/ArrowForward.svg";
 import { ReactComponent as ArrowBackIcon } from "../icons/ArrowBack.svg";
-import { FormattedMessage, defineMessages, useIntl } from "react-intl";
-import { TextInputField } from "../input/TextInputField";
+import { defineMessages, useIntl } from "react-intl";
 import { IconButton } from "../input/IconButton";
 import { FullscreenLayout } from "../layout/FullscreenLayout";
 import { Button } from "../input/Button";
@@ -24,26 +21,31 @@ const navTitleMessages = defineMessages({
   avatars: { id: "media-browser.nav_title.avatars", defaultMessage: "Avatars" },
   sketchfab: { id: "media-browser.nav_title.sketchfab", defaultMessage: "Sketchfab" },
   poly: { id: "media-browser.nav_title.poly", defaultMessage: "Google Poly" },
-  twitch: { id: "media-browser.nav_title.twitch", defaultMessage: "Twitch" }
+  twitch: { id: "media-browser.nav_title.twitch", defaultMessage: "Twitch" },
+  
+  futureCity: { id: "media-browser.nav_title.future_city", defaultMessage: "Future City" },
+  animals: { id: "media-browser.nav_title.animals", defaultMessage: "Animals" },
+  natureAndPlants: { id: "media-browser.nav_title.nature_and_plants", defaultMessage: "Nature & Plants" },
+  art: { id: "media-browser.nav_title.art", defaultMessage: "Art" },
+  fashionAndStyle: { id: "media-browser.nav_title.fashion_and_style", defaultMessage: "Fashion & Style" },
+  transportation: { id: "media-browser.nav_title.transportation", defaultMessage: "Transportation" },
+  technology: { id: "media-browser.nav_title.technology", defaultMessage: "Technology" },
+  foodAndDrink: { id: "media-browser.nav_title.food_and_drink", defaultMessage: "Food & Drink" },
+  sports: { id: "media-browser.nav_title.sports", defaultMessage: "Sports" },
+  fun: { id: "media-browser.nav_title.fun", defaultMessage: "Fun" },
+  living: { id: "media-browser.nav_title.living", defaultMessage: "Living" },
+  medicine: { id: "media-browser.nav_title.medicine", defaultMessage: "Medicine" }
 });
 
 export function MediaBrowser({
   onClose,
   browserRef,
-  searchInputRef,
-  autoFocusSearch,
-  searchPlaceholder,
-  searchDescription,
-  onSearchKeyDown,
-  onClearSearch,
   mediaSources,
   selectedSource,
   onSelectSource,
   activeFilter,
   facets,
   onSelectFacet,
-  query,
-  onChangeQuery,
   headerRight,
   hasNext,
   hasPrevious,
@@ -60,34 +62,6 @@ export function MediaBrowser({
         <IconButton onClick={onClose}>
           <CloseIcon />
         </IconButton>
-      }
-      headerCenter={
-        <>
-          {selectedSource === "favorites" ? (
-            <>
-              <StarIcon className={styles.favoriteIcon} />
-              <h3>
-                <FormattedMessage id="media-browser.favorites-header" defaultMessage="Favorite Rooms" />
-              </h3>
-            </>
-          ) : (
-            <TextInputField
-              value={query}
-              onChange={onChangeQuery}
-              autoFocus={autoFocusSearch}
-              ref={searchInputRef}
-              placeholder={searchPlaceholder}
-              onKeyDown={onSearchKeyDown}
-              beforeInput={<SearchIcon className={styles.searchIcon} />}
-              afterInput={
-                <IconButton onClick={onClearSearch}>
-                  <CloseIcon height={16} width={16} />
-                </IconButton>
-              }
-              description={searchDescription}
-            />
-          )}
-        </>
       }
       headerRight={headerRight}
     >
@@ -125,8 +99,8 @@ export function MediaBrowser({
             <MediaGrid
               isVariableWidth={selectedSource === "gifs" || selectedSource === "images"}
               sm={selectedSource === "avatars"}
-            >
-              {children}
+            > 
+            {children}
             </MediaGrid>
           ) : (
             <div className={styles.noResults}>{noResultsMessage}</div>
@@ -150,20 +124,12 @@ export function MediaBrowser({
 MediaBrowser.propTypes = {
   onClose: PropTypes.func,
   browserRef: PropTypes.any,
-  searchInputRef: PropTypes.any,
-  autoFocusSearch: PropTypes.bool,
-  searchPlaceholder: PropTypes.string,
-  searchDescription: PropTypes.node,
-  onSearchKeyDown: PropTypes.func,
-  onClearSearch: PropTypes.func,
   mediaSources: PropTypes.array,
   selectedSource: PropTypes.string,
   onSelectSource: PropTypes.func,
   activeFilter: PropTypes.string,
   facets: PropTypes.array,
   onSelectFacet: PropTypes.func,
-  query: PropTypes.string,
-  onChangeQuery: PropTypes.func,
   headerRight: PropTypes.node,
   hasNext: PropTypes.bool,
   hasPrevious: PropTypes.bool,

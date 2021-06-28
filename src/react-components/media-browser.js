@@ -17,6 +17,8 @@ import { fetchReticulumAuthenticated, getReticulumFetchUrl } from "../utils/phoe
 import { proxiedUrlFor, scaledThumbnailUrlFor } from "../utils/media-url-utils";
 import { CreateTile, MediaTile } from "./room/MediaTiles";
 import { SignInMessages } from "./auth/SignInModal";
+import { SketchfabModel } from "./room/MediaBrowser.stories";
+
 const isMobile = AFRAME.utils.device.isMobile();
 const isMobileVR = AFRAME.utils.device.isMobileVR();
 
@@ -218,6 +220,10 @@ class MediaBrowserContainer extends Component {
 
     return newState;
   };
+
+  reload = () => {
+    this.props.mediaSearchStore.filterQueryNavigate("", "");
+  }
 
   handleQueryUpdated = (query, forceNow) => {
     this.setState({ result: null });
@@ -444,6 +450,8 @@ class MediaBrowserContainer extends Component {
         </>
       );
     }
+
+    return SketchfabModel(this.handleEntryClicked, this.reload, this.close);
 
     return (
       <MediaBrowser
